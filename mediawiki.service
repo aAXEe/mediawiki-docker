@@ -7,14 +7,14 @@ Requires=mysql.service
 Restart=always
 KillMode=control-group
 ExecStartPre=-/usr/bin/docker run --name=mediawiki-data -v /data \
-    raumzeitlabor/mediawiki-docker echo "data-only container for mediawiki"
+    openseamap/mediawiki-docker echo "data-only container for mediawiki"
 ExecStart=/usr/bin/docker run --name=mediawiki-web --detach=false --cpu-shares=512 \
-    --memory=128M --publish=127.0.0.1:8081:80 --rm=true \
-    --env=VIRTUAL_HOST=wiki.raumzeitlabor.de,w.rzl.so \
+    --memory=128M --publish=127.0.0.1:8082:80 --rm=true \
+    --env=VIRTUAL_HOST=wiki.openseamap.org \
     --volumes-from=mediawiki-data --hostname=mediawiki-web \
     --cap-drop=NET_RAW --link=mysql:mysql \
-    raumzeitlabor/mediawiki-docker
-ExecStop=/usr/bin/docker pull raumzeitlabor/mediawiki-docker:latest
+    openseamap/mediawiki-docker
+ExecStop=/usr/bin/docker pull openseamap/mediawiki-docker:latest
 
 [Install]
 WantedBy=multi-user.target

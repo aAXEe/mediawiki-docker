@@ -1,4 +1,4 @@
-This is the image we're using for our wiki at https://w.rzl.so. It is based on
+This is the image we're using for our wiki. It is based on
 [phusion/baseimage-docker](https://github.com/phusion/baseimage-docker).
 
 The mediawiki version being used is 1.23.8 (LTS). The image comes with a
