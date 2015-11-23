@@ -1,7 +1,7 @@
 [Unit]
 Description=Mediawiki
-After=docker.service mysql.service
-Requires=mysql.service
+After=docker.service mysql.service smtp.service
+Requires=mysql.service smtp.service
 
 [Service]
 Restart=always
@@ -10,9 +10,9 @@ ExecStartPre=-/usr/bin/docker run --name=mediawiki-data -v /data \
     openseamap/mediawiki-docker echo "data-only container for mediawiki"
 ExecStart=/usr/bin/docker run --name=mediawiki-web --detach=false --cpu-shares=512 \
     --memory=128M --publish=127.0.0.1:8082:80 --rm=true \
-    --env=VIRTUAL_HOST=wiki.openseamap.org \
+    --env=VIRTUAL_HOST=wiki.* \
     --volumes-from=mediawiki-data --hostname=mediawiki-web \
-    --cap-drop=NET_RAW --link=mysql:mysql \
+    --cap-drop=NET_RAW --link=mysql:mysql --link=smtp:smtp \
     openseamap/mediawiki-docker
 ExecStop=/usr/bin/docker pull openseamap/mediawiki-docker:latest
 
