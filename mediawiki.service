@@ -13,7 +13,7 @@ ExecStart=/usr/bin/docker run --name=mediawiki-web --detach=false --cpu-shares=5
     --env=VIRTUAL_HOST=wiki.* \
     --volumes-from=mediawiki-data --hostname=mediawiki-web \
     --cap-drop=NET_RAW --link=mysql:mysql --link=smtp:smtp \
-    openseamap/mediawiki-docker
+    openseamap/mediawiki-docker:master
 ExecStop=/usr/bin/docker pull openseamap/mediawiki-docker:master
 
 [Install]
